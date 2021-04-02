@@ -1,5 +1,11 @@
 import math as mt
 import numpy as np
+import os
+
+def copy_mesh(mesh):
+  os.chdir('mesh')
+  os.system('cp ' + str(mesh) + ' ..')
+  os.chdir('..')
 
 def load_points_cells(filename):
   points = []
@@ -44,9 +50,6 @@ def calc_temp(x, y, z, t):
 
   return T
 
-
-# points formatted as nested list, each item [index, x, y, z]
-
 def simulate(points):
 
   T = np.zeros((len(points)))
@@ -55,6 +58,8 @@ def simulate(points):
     T[i] = calc_temp(points[i][0], points[i][1], points[i][2], 10e-5)
 
   return T
+
+copy_mesh('untitled.vtk')
 
 points, cells = load_points_cells('untitled.vtk')
 T = simulate(points)
